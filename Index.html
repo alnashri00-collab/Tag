@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام تقييم المهارات الرقمية - النسخة المحلية</title>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Noto Sans Arabic', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            color: #4a5568;
+            margin-bottom: 15px;
+        }
+        
+        .header-info {
+            color: #718096;
+            line-height: 1.6;
+        }
+        
+        .student-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .student-section h2 {
+            color: #4a5568;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group label {
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #4a5568;
+        }
+        
+        .form-group input, .form-group select {
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .unit-card {
+            background: white;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .unit-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .unit-header {
+            padding: 20px;
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .unit-1 { background: linear-gradient(135deg, #48bb78, #38a169); }
+        .unit-2 { background: linear-gradient(135deg, #4299e1, #3182ce); }
+        .unit-3 { background: linear-gradient(135deg, #ed8936, #dd6b20); }
+        .unit-4 { background: linear-gradient(135deg, #9f7aea, #805ad5); }
+        
+        .unit-content {
+            padding: 25px;
+        }
+        
+        .skill-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            background: #f7fafc;
+            transition: all 0.3s ease;
+        }
+        
+        .skill-item:hover {
+            background: #edf2f7;
+            transform: translateX(5px);
+        }
+        
+        .skill-name {
+            font-weight: 500;
+            color: #4a5568;
+            flex: 1;
+            margin-left: 15px;
+        }
+        
+        .rating-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .rating-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        
+        .rating-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .rating-btn.selected {
+            box-shadow: 0 0 0 3px rgba(255,255,255,0.5);
+            transform: scale(1.1);
+        }
+        
+        .rating-1 { background: #e53e3e; }
+        .rating-2 { background: #fd9801; }
+        .rating-3 { background: #ecc94b; }
+        .rating-4 { background: #4299e1; }
+        .rating-5 { background: #48bb78; }
+        
+        .actions-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .action-btn {
+            padding: 15px 20px;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .btn-primary { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .btn-success { background: linear-gradient(135deg, #48bb78, #38a169); }
+        .btn-warning { background: linear-gradient(135deg, #ed8936, #dd6b20); }
+        .btn-danger { background: linear-gradient(135deg, #e53e3e, #c53030); }
+        .btn-info { background: linear-gradient(135deg, #4299e1, #3182ce); }
+        
+        .status-message {
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+        
+        .status-success {
+            background: #c6f6d5;
+            color: #22543d;
+            border: 2px solid #9ae6b4;
+        }
+        
+        .status-error {
+            background: #fed7d7;
+            color: #742a2a;
+            border: 2px solid #fc8181;
+        }
+        
+        .status-info {
+            background: #bee3f8;
+            color: #2a4365;
+            border: 2px solid #90cdf4;
+        }
+        
+        .students-list {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .students-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .student-card {
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .student-card:hover {
+            border-color: #667eea;
+            background: #f7fafc;
+            transform: translateY(-2px);
+        }
+        
+        .student-card.selected {
+            border-color: #667eea;
+            background: #ebf4ff;
+        }
+        
+        @media (max-width: 768px) {
+            .rating-buttons {
+                flex-direction: column;
+            }
+            
+            .skill-item {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 15px;
+            }
+            
+            .actions-section {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white !important; }
+            .container { max-width: none !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🎓 نظام تقييم المهارات الرقمية</h1>
+            <div class="header-info">
+                <p><strong>المدرسة:</strong> مدرسة الإمام أبي حنيفة | <strong>الصف:</strong> الخامس الابتدائي</p>
+                <p><strong>المعلم:</strong> محمد منصور الناشري | <strong>الفصل الدراسي:</strong> الأول</p>
+            </div>
+        </div>
+
+        <!-- Student Section -->
+        <div class="student-section no-print">
+            <h2>👨‍🎓 بيانات الطالب</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>اسم الطالب</label>
+                    <input type="text" id="studentName" placeholder="أدخل اسم الطالب">
+                </div>
+                <div class="form-group">
+                    <label>الفصل</label>
+                    <select id="studentClass">
+                        <option value="5أ">5أ</option>
+                        <option value="5ب">5ب</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>رقم الطالب (اختياري)</label>
+                    <input type="text" id="studentId" placeholder="رقم الطالب">
+                </div>
+            </div>
+        </div>
+
+        <!-- Saved Students -->
+        <div class="students-list no-print" id="studentsListSection" style="display: none;">
+            <h2>📋 الطلاب المحفوظين</h2>
+            <div class="students-grid" id="studentsGrid"></div>
+        </div>
+
+        <!-- Assessment Units -->
+        <div id="assessmentUnits">
+            <!-- Unit 1 -->
+            <div class="unit-card">
+                <div class="unit-header unit-1">
+                    🟩 الوحدة الأولى: إدارة الملفات والنظام
+                </div>
+                <div class="unit-content">
+                    <div class="skill-item" data-unit="1" data-skill="1">
+                        <div class="skill-name">1️⃣ إنشاء اختصار للملفات والمجلدات</div>
+                        <div class="rating-buttons">
+                            <button class="rating-btn rating-1" data-rating="1">ضعيف</button>
+                            <button class="rating-btn rating-2" data-rating="2">مقبول</button>
+                            <button class="rating-btn rating-3" data-rating="3">جيد</button>
+                            <button class="rating-btn rating-4" data-rating="4">جيد جداً</button>
+                            <button class="rating-btn rating-5" data-rating="5">ممتاز</button>
+                        </div>
+                    </div>
+                    <div class="skill-item" data-unit="1" data-skill="2">
+                        <div class="skill-name">2️⃣ ضغط الملفات والمجلدات وفك الضغط</div>
+                        <div class="rating-buttons">
+                            <button class="rating-btn rating-1" data-rating="1">ضعيف</button>
+                            <button class="rating-btn rating-2" data-rating="2">مقبول</button>
+                            <button class="rating-btn rating-3" data-rating="3">جيد</button>
+                            <button class="rating-btn rating-4" data-rating="4">جيد جداً</button>
+                            <button class="rating-btn rating-5" data-rating="5">ممتاز</button>
+                        </div>
+                    </div>
+                    <div class="skill-item" data-unit="1" data-skill="3">
+                        <div class="skill-name">3️⃣ عرض الملفات بطرق مختلفة</div>
+                        <div class="rating-buttons">
+                            <button class="rating-btn rating-1" data-rating="1">ضعيف</button>
+                            <button class="rating-btn rating-2" data-rating="2">مقبول</button>
+                            <button class="rating-btn rating-3" data-rating="3">جيد</button>
+                            <button class="rating-btn rating-4" data-rating="4">جيد جداً</button>
+                            <button class="rating-btn rating-5" data-rating="5">ممتاز</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Unit 2 -->
+            <div class="unit-card">
+                <div class="unit-header unit-2">
+                    🟦 الوحدة الثانية: معالجة النصوص
+                </div>
+                <div class="unit-content">
+                    <div class="skill-item" data-unit="2" data-skill="1">
+                        <div class="skill-name">1️⃣ إضافة الصور والأشكال داخل المستند</div>
+                        <div class="rating-buttons">
+                            <button class="rating-btn rating-1" data-rating="1">ضعيف</button>
+                            <button class="rating-btn rating-2" data-rating="2">مقبول</button>
+                            <button class="rating-btn rating-3" data-rating="3">جيد</button>
+                            <button class="rating-btn rating-4" data-rating="4">جيد جداً</button>
+                            <button class="rating-btn rating-5" data-rating="5">ممتاز</button>
+                        </div>
+                    </div>
+                    <div class="skill-item" data-unit="2" data-skill="2">
+                        <div class="skill-name">2️⃣ تنسيق الفقرات المتقدم</div>
+                        <div class="rating-buttons">
+                            <button class="rating-btn rating-1" data-rating="1">ضعيف</button>
+                            <button class="rating-btn rating-2" data-rating="2">مقبول</button>
+                            <button class="rating-btn rating-3" data-rating="3">جيد</button>
+                            <button class="rating-btn rating-4" data-rating="4">جيد جداً</button>
+                            <button class="rating-btn rating-5" data-rating="5">ممتاز</button>
+                        </div>
+                    </div>
+                    <div class="skill-item" data-unit="2" data-skill="3">
+                        <div class="skill-name">3️⃣ عرض المعلومات بالرسومات التوضيحية</div>
+                        <div class="rating-buttons">
+                            <button class="rating-btn rating-1" data-rating="1">ضعيف</button>
+                            <button class="rating-btn rating-2" data-rating="2">مقبول</button>
+                            <button class="rating-btn rating-3" data-rating="3">جيد</button>
+                            <button class="rating-btn rating-4" data-rating="4">جيد جداً</button>
+                            <button class="rating-btn rating-5" data-rating="5">ممتاز</button>
+                        </div>
+                    </div>
+                    <div class="skill-item" data-unit="2" data-skill="4">
+                        <div class="skill-name">4️⃣ إجراء التدقيق الإملائي والنحوي</div>
+                        <div class="rating-buttons">
+                            <button class="rating-btn rating-1" data-rating="1">ضعيف</button>
+                            <button class="rating-btn rating-2" data-rating="2">مقبول</button>
+                            <button class="rating-btn rating-3" data-rating="3">جيد</button>
+                            <button class="rating-btn rating-4" data-rating="4">جيد جداً</button>
+                            <button class="rating-btn rating-5" data-rating="5">ممتاز</button>
+                        </div>
+                    </div>
+                    <div class="skill-item" data-unit="2" data-skill="5">
+                        <div class="skill-name">5️⃣ البحث عن مرادفات كلمة</div>
+                        <div class="rating-buttons">
+                            <button class="rating-btn rating-1" data-rating="1">ضعيف</button>
+                            <button class="rating-btn rating-2" data-rating="2">مقبول</button>
+                            <button class="rating-btn rating-3" data-rating="3">جيد</button>
+                            <button class="rating-btn rating-4" data-rating="4">جيد جداً</button>
+                            <button class="rating-btn rating-5" data-rating="5">ممتاز</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Unit 3 -->
+            <div class="unit-card">
+                <div class="unit-header unit-3">
+                    🟨 الوحدة الثالثة: تحرير الصوت والفيديو
+                </div>
+                <div class="unit-content">
+                    <div class="skill-item" data-unit="3" data-skill="1">
+                        <div class="skill-name">1️⃣ إنشاء وتحرير الأصوات الخاصة</div>
+                        <div class="rating-buttons">
+                            <button class="rating-btn rating-1" data-rating="1">ضعيف</button>
+                            <button class="rating-btn rating-2" data-rating="2">مقبول</button>
+                            <button class="rating-btn rating-3" data-rating="3">جيد</button>
+                            <button class="rating-btn rating-4" data-rating="4">جيد جداً</button>
+                            <button class="rating-btn rating-5" data-rating="5">ممتاز</button>
+                        </div>
+                    </div>
+                    <div class="skill-item" data-unit="3" data-skill="2">
+                        <div class="skill-name">2️⃣ إنشاء وتحرير مقطع الفيديو</div>
+                        <div class="rating-buttons">
+                            <button class="rating-btn rating-1" data-rating="1">ضعيف</button>
+                            <button class="rating-btn rating-2" data-rating="2">مقبول</button>
+                            <button class="rating-btn rating-3" data-rating="3">جيد</button>
+                            <button class="rating-btn rating-4" data-rating="4">جيد جداً</button>
+                            <button class="rating-btn rating-5" data-rating="5">ممتاز</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Unit 4 -->
+            <div class="unit-card">
+                <div class="unit-header unit-4">
+                    🟪 الوحدة الرابعة: البرمجة المرئية بسكراتش
+                </div>
+                <div class="unit-content">
+                    <div class="skill-item" data-unit="4" data-skill="1">
+                        <div class="skill-name">1️⃣ التعرف على الكائن واستخدام مظاهره</div>
+                        <div class="rating-buttons">
+                            <button class="rating-btn rating-1" data-rating="1">ضعيف</button>
+                            <button class="rating-btn rating-2" data-rating="2">مقبول</button>
+                            <button class="rating-btn rating-3" data-rating="3">جيد</button>
+                            <button class="rating-btn rating-4" data-rating="4">جيد جداً</button>
+                            <button class="rating-btn rating-5" data-rating="5">ممتاز</button>
+                        </div>
+                    </div>
+                    <div class="skill-item" data-unit="4" data-skill="2">
+                        <div class="skill-name">2️⃣ استخدام لبنات الإدخال والإخراج</div>
+                        <div class="rating-buttons">
+                            <button class="rating-btn rating-1" data-rating="1">ضعيف</button>
+                            <button class="rating-btn rating-2" data-rating="2">مقبول</button>
+                            <button class="rating-btn rating-3" data-rating="3">جيد</button>
+                            <button class="rating-btn rating-4" data-rating="4">جيد جداً</button>
+                            <button class="rating-btn rating-5" data-rating="5">ممتاز</button>
+                        </div>
+                    </div>
+                    <div class="skill-item" data-unit="4" data-skill="3">
+                        <div class="skill-name">3️⃣ استخدام التكرار لأتمتة الأفعال</div>
+                        <div class="rating-buttons">
+                            <button class="rating-btn rating-1" data-rating="1">ضعيف</button>
+                            <button class="rating-btn rating-2" data-rating="2">مقبول</button>
+                            <button class="rating-btn rating-3" data-rating="3">جيد</button>
+                            <button class="rating-btn rating-4" data-rating="4">جيد جداً</button>
+                            <button class="rating-btn rating-5" data-rating="5">ممتاز</button>
+                        </div>
+                    </div>
+                    <div class="skill-item" data-unit="4" data-skill="4">
+                        <div class="skill-name">4️⃣ استخدام الشروط لاتخاذ القرارات</div>
+                        <div class="rating-buttons">
+                            <button class="rating-btn rating-1" data-rating="1">ضعيف</button>
+                            <button class="rating-btn rating-2" data-rating="2">مقبول</button>
+                            <button class="rating-btn rating-3" data-rating="3">جيد</button>
+                            <button class="rating-btn rating-4" data-rating="4">جيد جداً</button>
+                            <button class="rating-btn rating-5" data-rating="5">ممتاز</button>
+                        </div>
+                    </div>
+                    <div class="skill-item" data-unit="4" data-skill="5">
+                        <div class="skill-name">5️⃣ تغيير اتجاه الكائن وضبط نمط التدوير</div>
+                        <div class="rating-buttons">
+                            <button class="rating-btn rating-1" data-rating="1">ضعيف</button>
+                            <button class="rating-btn rating-2" data-rating="2">مقبول</button>
+                            <button class="rating-btn rating-3" data-rating="3">جيد</button>
+                            <button class="rating-btn rating-4" data-rating="4">جيد جداً</button>
+                            <button class="rating-btn rating-5" data-rating="5">ممتاز</button>
+                        </div>
+                    </div>
+                    <div class="skill-item" data-unit="4" data-skill="6">
+                        <div class="skill-name">6️⃣ استخدام رسائل البث لإنشاء حوار</div>
+                        <div class="rating-buttons">
+                            <button class="rating-btn rating-1" data-rating="1">ضعيف</button>
+                            <button class="rating-btn rating-2" data-rating="2">مقبول</button>
+                            <button class="rating-btn rating-3" data-rating="3">جيد</button>
+                            <button class="rating-btn rating-4" data-rating="4">جيد جداً</button>
+                            <button class="rating-btn rating-5" data-rating="5">ممتاز</button>
+                        </div>
+                    </div>
+                    <div class="skill-item" data-unit="4" data-skill="7">
+                        <div class="skill-name">7️⃣ استخدام لبنات الاستشعار للتحكم في الحركة</div>
+                        <div class="rating-buttons">
+                            <button class="rating-btn rating-1" data-rating="1">ضعيف</button>
+                            <button class="rating-btn rating-2" data-rating="2">مقبول</button>
+                            <button class="rating-btn rating-3" data-rating="3">جيد</button>
+                            <button class="rating-btn rating-4" data-rating="4">جيد جداً</button>
+                            <button class="rating-btn rating-5" data-rating="5">ممتاز</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="actions-section no-print">
+            <button class="action-btn btn-success" id="saveStudentBtn">💾 حفظ بيانات الطالب</button>
+            <button class="action-btn btn-info" id="loadStudentBtn">📂 تحميل طالب محفوظ</button>
+            <button class="action-btn btn-primary" id="generateReportBtn">📄 إنشاء تقرير</button>
+            <button class="action-btn btn-warning" id="exportDataBtn">📤 تصدير البيانات</button>
+            <button class="action-btn btn-info" id="importDataBtn">📥 استيراد البيانات</button>
+            <button class="action-btn btn-danger" id="clearBtn">🗑️ مسح التقييمات</button>
+        </div>
+
+        <!-- Hidden file input for import -->
+        <input type="file" id="fileInput" accept=".json" style="display: none;">
+
+        <!-- Status Message -->
+        <div id="statusMessage" class="status-message"></div>
+    </div>
+
+    <script>
+        // Local storage keys
+        const STORAGE_KEYS = {
+            STUDENTS: 'digitalSkills_students',
+            CURRENT_ASSESSMENT: 'digitalSkills_currentAssessment'
+        };
+
+        // Assessment data
+        let assessmentData = {};
+        let savedStudents = [];
+
+        // Rating levels
+        const ratingLevels = {
+            1: { text: 'ضعيف', description: 'لا يستطيع أداء المهارة حتى مع المساعدة' },
+            2: { text: 'مقبول', description: 'يؤدي المهارة بشكل بسيط مع كثير من المساعدة' },
+            3: { text: 'جيد', description: 'يؤدي المهارة بشكل مقبول مع بعض التوجيه' },
+            4: { text: 'جيد جداً', description: 'يؤدي المهارة بإتقان مع الحاجة لقليل من التوجيه' },
+            5: { text: 'ممتاز', description: 'يؤدي المهارة بإتقان تام ودون مساعدة' }
+        };
+
+        // Unit and skill names
+        const unitNames = {
+            1: 'إدارة الملفات والنظام',
+            2: 'معالجة النصوص',
+            3: 'تحرير الصوت والفيديو',
+            4: 'البرمجة المرئية بسكراتش'
+        };
+
+        const skillNames = {
+            1: {
+                1: 'إنشاء اختصار للملفات والمجلدات',
+                2: 'ضغط الملفات والمجلدات وفك الضغط',
+                3: 'عرض الملفات بطرق مختلفة'
+            },
+            2: {
+                1: 'إضافة الصور والأشكال داخل المستند',
+                2: 'تنسيق الفقرات المتقدم',
+                3: 'عرض المعلومات بالرسومات التوضيحية',
+                4: 'إجراء التدقيق الإملائي والنحوي',
+                5: 'البحث عن مرادفات كلمة'
+            },
+            3: {
+                1: 'إنشاء وتحرير الأصوات الخاصة',
+                2: 'إنشاء وتحرير مقطع الفيديو'
+            },
+            4: {
+                1: 'التعرف على الكائن واستخدام مظاهره',
+                2: 'استخدام لبنات الإدخال والإخراج',
+                3: 'استخدام التكرار لأتمتة الأفعال',
+                4: 'استخدام الشروط لاتخاذ القرارات',
+                5: 'تغيير اتجاه الكائن وضبط نمط التدوير',
+                6: 'استخدام رسائل البث لإنشاء حوار',
+                7: 'استخدام لبنات الاستشعار للتحكم في الحركة'
+            }
+        };
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedData();
+            initializeEventListeners();
+            updateStudentsList();
+        });
+
+        function initializeEventListeners() {
+            // Rating buttons
+            document.querySelectorAll('.rating-btn').forEach(btn => {
+                btn.addEventListener('click', handleRatingClick);
+            });
+
+            // Action buttons
+            document.getElementById('saveStudentBtn').addEventListener('click', saveStudent);
+            document.getElementById('loadStudentBtn').addEventListener('click', toggleStudentsList);
+            document.getElementById('generateReportBtn').addEventListener('click', generateReport);
+            document.getElementById('exportDataBtn').addEventListener('click', exportData);
+            document.getElementById('importDataBtn').addEventListener('click', () => {
+                document.getElementById('fileInput').click();
+            });
+            document.getElementById('clearBtn').addEventListener('click', clearAssessments);
+            document.getElementById('fileInput').addEventListener('change', importData);
+        }
+
+        function handleRatingClick(event) {
+            const btn = event.target;
+            const skillItem = btn.closest('.skill-item');
+            const unit = skillItem.dataset.unit;
+            const skill = skillItem.dataset.skill;
+            const rating = parseInt(btn.dataset.rating);
+
+            // Remove selected class from all buttons in this skill
+            skillItem.querySelectorAll('.rating-btn').forEach(b => b.classList.remove('selected'));
+            
+            // Add selected class to clicked button
+            btn.classList.add('selected');
+            
+            // Store rating
+            if (!assessmentData[unit]) assessmentData[unit] = {};
+            assessmentData[unit][skill] = rating;
+            
+            // Save to localStorage
+            localStorage.setItem(STORAGE_KEYS.CURRENT_ASSESSMENT, JSON.stringify(assessmentData));
+            
+            showStatus('تم حفظ التقييم', 'success');
+        }
+
+        function saveStudent() {
+            const studentName = document.getElementById('studentName').value.trim();
+            const studentClass = document.getElementById('studentClass').value;
+            const studentId = document.getElementById('studentId').value.trim();
+
+            if (!studentName) {
+                showStatus('يرجى إدخال اسم الطالب', 'error');
+                return;
+            }
+
+            if (Object.keys(assessmentData).length === 0) {
+                showStatus('يرجى تقييم مهارة واحدة على الأقل', 'error');
+                return;
+            }
+
+            const studentData = {
+                id: studentId || Date.now().toString(),
+                name: studentName,
+                class: studentClass,
+                assessments: { ...assessmentData },
+                date: new Date().toISOString(),
+                timestamp: Date.now()
+            };
+
+            // Check if student already exists
+            const existingIndex = savedStudents.findIndex(s => s.name === studentName && s.class === studentClass);
+            
+            if (existingIndex >= 0) {
+                if (confirm('يوجد طالب بنفس الاسم والفصل. هل تريد تحديث بياناته؟')) {
+                    savedStudents[existingIndex] = studentData;
+                } else {
+                    return;
+                }
+            } else {
+                savedStudents.push(studentData);
+            }
+
+            // Save to localStorage
+            localStorage.setItem(STORAGE_KEYS.STUDENTS, JSON.stringify(savedStudents));
+            
+            updateStudentsList();
+            showStatus('تم حفظ بيانات الطالب بنجاح', 'success');
+        }
+
+        function toggleStudentsList() {
+            const studentsSection = document.getElementById('studentsListSection');
+            if (studentsSection.style.display === 'none') {
+                studentsSection.style.display = 'block';
+                updateStudentsList();
+            } else {
+                studentsSection.style.display = 'none';
+            }
+        }
+
+        function updateStudentsList() {
+            const studentsGrid = document.getElementById('studentsGrid');
+            studentsGrid.innerHTML = '';
+
+            if (savedStudents.length === 0) {
+                studentsGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #718096;">لا توجد بيانات طلاب محفوظة</p>';
+                return;
+            }
+
+            savedStudents.forEach((student, index) => {
+                const studentCard = document.createElement('div');
+                studentCard.className = 'student-card';
+                studentCard.innerHTML = `
+                    <div style="font-weight: 600; margin-bottom: 5px;">${student.name}</div>
+                    <div style="color: #718096; font-size: 14px;">${student.class}</div>
+                    <div style="color: #718096; font-size: 12px; margin-top: 5px;">
+                        ${new Date(student.date).toLocaleDateString('ar-SA')}
+                    </div>
+                `;
+                
+                studentCard.addEventListener('click', () => loadStudent(student));
+                studentsGrid.appendChild(studentCard);
+            });
+        }
+
+        function loadStudent(student) {
+            // Load student info
+            document.getElementById('studentName').value = student.name;
+            document.getElementById('studentClass').value = student.class;
+            document.getElementById('studentId').value = student.id;
+
+            // Load assessments
+            assessmentData = { ...student.assessments };
+            
+            // Update UI
+            updateAssessmentUI();
+            
+            // Hide students list
+            document.getElementById('studentsListSection').style.display = 'none';
+            
+            showStatus('تم تحميل بيانات الطالب', 'success');
+        }
+
+        function updateAssessmentUI() {
+            // Clear all selections first
+            document.querySelectorAll('.rating-btn.selected').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+
+            // Apply saved ratings
+            Object.keys(assessmentData).forEach(unit => {
+                Object.keys(assessmentData[unit]).forEach(skill => {
+                    const rating = assessmentData[unit][skill];
+                    const skillItem = document.querySelector(`[data-unit="${unit}"][data-skill="${skill}"]`);
+                    if (skillItem) {
+                        const ratingBtn = skillItem.querySelector(`[data-rating="${rating}"]`);
+                        if (ratingBtn) {
+                            ratingBtn.classList.add('selected');
+                        }
+                    }
+                });
+            });
+        }
+
+        function generateReport() {
+            const studentName = document.getElementById('studentName').value.trim();
+            const studentClass = document.getElementById('studentClass').value;
+
+            if (!studentName) {
+                showStatus('يرجى إدخال اسم الطالب', 'error');
+                return;
+            }
+
+            if (Object.keys(assessmentData).length === 0) {
+                showStatus('يرجى تقييم مهارة واحدة على الأقل', 'error');
+                return;
+            }
+
+            // Create report content
+            let reportHTML = `
+                <div style="max-width: 800px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif; direction: rtl;">
+                    <div style="text-align: center; margin-bottom: 30px; border-bottom: 3px solid #667eea; padding-bottom: 20px;">
+                        <h1 style="color: #4a5568; margin-bottom: 10px;">تقرير تقييم المهارات الرقمية</h1>
+                        <div style="color: #718096;">
+                            <p><strong>المدرسة:</strong> مدرسة الإمام أبي حنيفة</p>
+                            <p><strong>الطالب:</strong> ${studentName} | <strong>الفصل:</strong> ${studentClass}</p>
+                            <p><strong>المعلم:</strong> محمد منصور الناشري</p>
+                            <p><strong>التاريخ:</strong> ${new Date().toLocaleDateString('ar-SA')}</p>
+                        </div>
+                    </div>
+            `;
+
+            // Add assessment results
+            Object.keys(assessmentData).forEach(unit => {
+                const unitName = unitNames[unit];
+                reportHTML += `
+                    <div style="margin-bottom: 25px; border: 2px solid #e2e8f0; border-radius: 10px; overflow: hidden;">
+                        <div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 15px;">
+                            <h3>الوحدة ${unit}: ${unitName}</h3>
+                        </div>
+                        <div style="padding: 20px;">
+                `;
+
+                Object.keys(assessmentData[unit]).forEach(skill => {
+                    const rating = assessmentData[unit][skill];
+                    const skillName = skillNames[unit][skill];
+                    const ratingInfo = ratingLevels[rating];
+                    
+                    const ratingColor = rating >= 4 ? '#48bb78' : rating >= 3 ? '#ecc94b' : rating >= 2 ? '#fd9801' : '#e53e3e';
+                    
+                    reportHTML += `
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; margin-bottom: 10px; background: #f7fafc; border-radius: 8px;">
+                            <span>${skillName}</span>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <span style="background: ${ratingColor}; color: white; padding: 5px 15px; border-radius: 20px; font-size: 14px;">
+                                    ${ratingInfo.text}
+                                </span>
+                                <span style="font-weight: bold; color: #4a5568;">${rating}/5</span>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                reportHTML += `</div></div>`;
+            });
+
+            // Add rating scale
+            reportHTML += `
+                <div style="margin-top: 30px; padding: 20px; background: #f7fafc; border-radius: 10px;">
+                    <h3 style="color: #4a5568; margin-bottom: 15px;">مقياس التقييم:</h3>
+            `;
+
+            Object.keys(ratingLevels).forEach(level => {
+                const rating = ratingLevels[level];
+                reportHTML += `
+                    <div style="margin-bottom: 8px;">
+                        <strong>${level} - ${rating.text}:</strong> ${rating.description}
+                    </div>
+                `;
+            });
+
+            reportHTML += `
+                </div>
+                <div style="margin-top: 30px; text-align: center; color: #718096;">
+                    <p>توقيع ولي الأمر: ________________</p>
+                    <p style="margin-top: 20px;">معلم المادة: محمد منصور الناشري</p>
+                </div>
+            </div>
+            `;
+
+            // Open report in new window
+            const reportWindow = window.open('', '_blank');
+            reportWindow.document.write(`
+                <!DOCTYPE html>
+                <html lang="ar" dir="rtl">
+                <head>
+                    <meta charset="UTF-8">
+                    <title>تقرير ${studentName}</title>
+                    <style>
+                        @media print {
+                            body { margin: 0; }
+                            .no-print { display: none !important; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    ${reportHTML}
+                    <div class="no-print" style="text-align: center; margin-top: 20px;">
+                        <button onclick="window.print()" style="background: #667eea; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin: 5px;">طباعة التقرير</button>
+                        <button onclick="window.close()" style="background: #e53e3e; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin: 5px;">إغلاق</button>
+                    </div>
+                </body>
+                </html>
+            `);
+            reportWindow.document.close();
+
+            showStatus('تم إنشاء التقرير بنجاح', 'success');
+        }
+
+        function exportData() {
+            const exportData = {
+                students: savedStudents,
+                currentAssessment: assessmentData,
+                exportDate: new Date().toISOString(),
+                version: '1.0'
+            };
+
+            const dataStr = JSON.stringify(exportData, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = `تقييمات_المهارات_الرقمية_${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+
+            showStatus('تم تصدير البيانات بنجاح', 'success');
+        }
+
+        function importData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const importedData = JSON.parse(e.target.result);
+                    
+                    if (importedData.students) {
+                        if (confirm('هل تريد استبدال البيانات الحالية أم دمجها مع البيانات المستوردة؟\nموافق = استبدال، إلغاء = دمج')) {
+                            savedStudents = importedData.students;
+                        } else {
+                            // Merge data
+                            importedData.students.forEach(importedStudent => {
+                                const existingIndex = savedStudents.findIndex(s => 
+                                    s.name === importedStudent.name && s.class === importedStudent.class
+                                );
+                                if (existingIndex >= 0) {
+                                    savedStudents[existingIndex] = importedStudent;
+                                } else {
+                                    savedStudents.push(importedStudent);
+                                }
+                            });
+                        }
+                        
+                        localStorage.setItem(STORAGE_KEYS.STUDENTS, JSON.stringify(savedStudents));
+                        updateStudentsList();
+                    }
+
+                    if (importedData.currentAssessment) {
+                        assessmentData = importedData.currentAssessment;
+                        localStorage.setItem(STORAGE_KEYS.CURRENT_ASSESSMENT, JSON.stringify(assessmentData));
+                        updateAssessmentUI();
+                    }
+
+                    showStatus('تم استيراد البيانات بنجاح', 'success');
+                } catch (error) {
+                    showStatus('خطأ في قراءة الملف: ' + error.message, 'error');
+                }
+            };
+            reader.readAsText(file);
+            
+            // Reset file input
+            event.target.value = '';
+        }
+
+        function clearAssessments() {
+            if (confirm('هل أنت متأكد من مسح جميع التقييمات الحالية؟')) {
+                assessmentData = {};
+                localStorage.removeItem(STORAGE_KEYS.CURRENT_ASSESSMENT);
+                
+                // Clear UI
+                document.querySelectorAll('.rating-btn.selected').forEach(btn => {
+                    btn.classList.remove('selected');
+                });
+                
+                showStatus('تم مسح جميع التقييمات', 'success');
+            }
+        }
+
+        function loadSavedData() {
+            // Load saved students
+            const savedStudentsData = localStorage.getItem(STORAGE_KEYS.STUDENTS);
+            if (savedStudentsData) {
+                try {
+                    savedStudents = JSON.parse(savedStudentsData);
+                } catch (error) {
+                    console.error('Error loading saved students:', error);
+                    savedStudents = [];
+                }
+            }
+
+            // Load current assessment
+            const savedAssessmentData = localStorage.getItem(STORAGE_KEYS.CURRENT_ASSESSMENT);
+            if (savedAssessmentData) {
+                try {
+                    assessmentData = JSON.parse(savedAssessmentData);
+                    updateAssessmentUI();
+                } catch (error) {
+                    console.error('Error loading current assessment:', error);
+                    assessmentData = {};
+                }
+            }
+        }
+
+        function showStatus(message, type = 'info') {
+            const statusEl = document.getElementById('statusMessage');
+            statusEl.textContent = message;
+            statusEl.className = `status-message status-${type}`;
+            statusEl.style.display = 'block';
+            
+            setTimeout(() => {
+                statusEl.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98ae5194740597e8',t:'MTc1OTg0OTc1Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
